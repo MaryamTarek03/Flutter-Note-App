@@ -19,7 +19,6 @@ class _ToDoState extends State<ToDo> {
       if (_controller.text.isNotEmpty) {
         setState(() {
           todoItems.add([_controller.text, false]);
-          print(todoItems);
         });
         Navigator.pop(context);
       }
@@ -47,21 +46,52 @@ class _ToDoState extends State<ToDo> {
         elevation: 0,
         centerTitle: true,
         backgroundColor: MyColors.darkPink,
-        title: Text(
+        title: const Text(
           'TO DO',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) => ToDoTile(
-          todo: todoItems[index][0],
-          isChecked: todoItems[index][1],
-          onChanged: (value) => checkBoxChanged(value, index),
-          deleteFunction: (context) => deleteTodo(index),
-        ),
-        itemCount: todoItems.length,
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: todoItems.isNotEmpty,
+            child: Center(
+              child: Visibility(
+                visible: todoItems.isEmpty,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/emptyNotes.png',
+                      height: 250,
+                    ),
+                    const Text(
+                      'Add Your First ToDo',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    const Text('Relax and write something beautiful'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) => ToDoTile(
+                todo: todoItems[index][0],
+                isChecked: todoItems[index][1],
+                onChanged: (value) => checkBoxChanged(value, index),
+                deleteFunction: (context) => deleteTodo(index),
+              ),
+              itemCount: todoItems.length,
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -77,8 +107,8 @@ class _ToDoState extends State<ToDo> {
         backgroundColor: MyColors.lightPink,
         foregroundColor: Colors.white,
         elevation: 3,
-        shape: CircleBorder(),
-        child: Icon(Icons.add),
+        shape: const CircleBorder(),
+        child: const Icon(Icons.add),
       ),
     );
   }

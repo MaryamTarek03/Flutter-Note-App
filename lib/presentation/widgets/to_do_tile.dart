@@ -30,7 +30,7 @@ class _ToDoTileState extends State<ToDoTile> {
       ),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: StretchMotion(),
+          motion: const StretchMotion(),
           children: [
             SlidableAction(
               onPressed: widget.deleteFunction,
@@ -49,6 +49,8 @@ class _ToDoTileState extends State<ToDoTile> {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               leading: Container(
+                height: 35,
+                width: 35,
                 decoration: BoxDecoration(
                   color: widget.isChecked
                       ? MyColors.lightPink
@@ -63,8 +65,8 @@ class _ToDoTileState extends State<ToDoTile> {
                   value: widget.isChecked,
                   activeColor: MyColors.lightPink,
                   overlayColor: MaterialStatePropertyAll(MyColors.lightPink),
-                  side: BorderSide(color: Colors.transparent),
-                  splashRadius: 15, focusColor: MyColors.lightPink,
+                  side: const BorderSide(color: Colors.transparent),
+                  focusColor: MyColors.lightPink,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: MyColors.lightPink),
                     borderRadius: BorderRadius.circular(15),

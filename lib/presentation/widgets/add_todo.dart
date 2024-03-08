@@ -16,17 +16,31 @@ class TodoAddAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
+      actionsAlignment: MainAxisAlignment.center,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(width: double.infinity),
-          Text('Add a TODO'),
+          const SizedBox(width: double.infinity),
+          const Text('Add a TODO'),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextField(
               controller: controller,
+              cursorColor: MyColors.darkPink,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(15),
+                contentPadding: const EdgeInsets.all(15),
+                enabled: true,
+                fillColor: Colors.white,
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: MyColors.lightPink),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: MyColors.darkPink),
+                  borderRadius: BorderRadius.circular(25),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide(
@@ -41,12 +55,12 @@ class TodoAddAlert extends StatelessWidget {
       ),
       actions: [
         AlertButton(
-          text: 'Add',
-          onPressed: onAdd,
-        ),
-        AlertButton(
           text: 'Cancel',
           onPressed: onCancel,
+        ),
+        AlertButton(
+          text: 'Add',
+          onPressed: onAdd,
         ),
       ],
     );
@@ -66,6 +80,9 @@ class AlertButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(MyColors.darkPink),
+          foregroundColor: const MaterialStatePropertyAll(Colors.white)),
       onPressed: onPressed,
       child: Text(text),
     );
